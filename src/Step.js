@@ -1,4 +1,5 @@
 import React from 'react';
+import Checkbox from './Checkbox';
 
 class Step extends React.Component {
 
@@ -12,9 +13,11 @@ class Step extends React.Component {
 
   render() {
     return (
-      <div onClick={this.toggleComplete} className={"step " + (this.state.completed ? " completed-item" : "")}>
+      <div className={"step" + (this.state.completed ? " completed-item" : "")}>
+        <Checkbox editing={this.props.editing} toggleComplete={this.toggleComplete} />
+        <span onClick={() => this.props.removeStep(this.props.index)} className={"minus-button" + (!this.props.editing ? " hide" : "")}></span>
         <p className="step-index">{this.props.index + 1}</p>
-        <div contentEditable suppressContentEditableWarning placeholder="Enter your instruction!" type="text" onChange={({ target }) => this.props.editStep(this.props.index, target.value)} className="step-instruction">
+        <div onChange={({ target }) => this.props.editStep(this.props.index, target.value)} contentEditable={this.props.editing} suppressContentEditableWarning placeholder="Enter your instruction!" className="step-instruction">
           {this.props.instruction}
         </div>
       </div>

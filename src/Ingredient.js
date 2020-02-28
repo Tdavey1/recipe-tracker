@@ -1,12 +1,26 @@
 import React from 'react';
+import Checkbox from './Checkbox';
 
 const conversions = {
   tablespoons: [
     { unit: "cups", forumla: 1 / 16 },
     { unit: "teaspoons", forumla: 3 },
-    { unit: "fl oz", forumla: 0.5 },
     { unit: "ml", forumla: 14.787 }
-
+  ],
+  teaspoons: [
+    { unit: "cups", forumla: 1 / 16 },
+    { unit: "tablespoons", forumla: 1 / 3 },
+    { unit: "ml", forumla: 4.929 }
+  ],
+  cups: [
+    { unit: "tablespoons", forumla: 16 },
+    { unit: "teaspoons", forumla: 48 },
+    { unit: "ml", forumla: 237 }
+  ],
+  ml: [
+    { unit: "tablespoons", forumla: 1 / 14.787 },
+    { unit: "teaspoons", forumla: 1 / 4.929 },
+    { unit: "cups", forumla: 1 / 237 }
   ]
 }
 
@@ -45,8 +59,10 @@ class Ingredient extends React.Component {
 
   render() {
     return (
-      <div className={"ingredient" + (this.state.completed ? " completed-item" : "")} onClick={this.toggleComplete}>
-        <span onClick={() => this.props.onClick(this.props.index)} className="minus-button"></span>
+      <div className={"ingredient" + (this.state.completed ? " completed-item" : "")}>
+        <Checkbox editing={this.props.editing} toggleComplete={this.toggleComplete} />
+
+        <span onClick={() => this.props.removeIngredient(this.props.index)} className={"minus-button" + (!this.props.editing ? " hide" : "")}></span>
         {this.props.unit !== null &&
           <p className={"tooltip" + (this.state.hovering ? " show" : "")}>{this.state.message}</p>
         }

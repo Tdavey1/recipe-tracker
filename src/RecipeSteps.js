@@ -1,46 +1,32 @@
 import React from 'react';
 import Step from './Step.js'
+import SlidingToggle from "./SlidingToggle.js"
 
 class RecipeSteps extends React.Component {
   state = {
-    steps: [
-      { key: 1, instruction: "i'm a carrot and i am orange, but i am not an orange because that's a vegetable. I grow in the dirt and then when people want to eat me, they pull me out of the ground. I think i am the beset vegeetable" },
-      { key: 2, instruction: "some step" },
-      { key: 3, instruction: "some other step" },
-      { key: 4, instruction: "some last step" },
-    ],
-    items: 4
+    editing: false
   }
 
-  processAdd = (i) => {
-    const steps = this.state.steps.slice();
-    const key = this.state.items + 1;
-    steps.splice(i, 0, { key: key, instruction: "" })
-    this.setState({ key: key, steps: steps });
-  }
-
-  editStep = (i, text) => {
-    const steps = this.state.steps;
-    steps[i].instruction = text;
-    this.setState({ steps: steps });
+  toggleEdit = () => {
+    this.setState({ editing: !this.state.editing })
   }
 
   render() {
     return (
       <div className="steps-container">
-        <h2 className="subtitle">Steps</h2>
-        {this.state.steps.map((step, i) =>
+        <div className="section-title-container">
+          <h2 className="subtitle">Steps</h2>
+          <SlidingToggle toggleEdit={this.toggleEdit} />
+        </div>
+        {this.props.steps.map((step, i) =>
           <React.Fragment key={step.key}>
-            <span onClick={() => this.processAdd(i)} className="plus-button"></span>
-            <div className="connector"></div>
-            <Step key={step.key} index={i} instruction={step.instruction} editStep={this.editStep} />
-            <div className="connector"></div>
+            <span onClick={() => this.props.addStep(i)} className={"plus-button" + (!this.state.editing ? " hide" : "")}></span>
+            <Step editing={this.state.editing} key={step.instruction} index={i} instruction={step.instruction} editStep={this.props.editStep} removeStep={this.props.removeStep} />
           </React.Fragment>
         )}
-        <span onClick={() => this.processAdd(this.state.steps.length)} className="plus-button"></span>
+        <span onClick={() => this.props.addStep(this.props.steps.length)} className={"plus-button" + (!this.state.editing ? " hide" : "")}></span>
       </div>
     )
-
   }
 }
 

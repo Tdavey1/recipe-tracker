@@ -1,4 +1,16 @@
 import React from 'react';
+import './navbar.css';
+import {
+  Link
+} from "react-router-dom";
+
+
+function NavbarItem(props) {
+  return (
+    <Link className={"navbar-item navbar-option" + (props.display ? " show" : "")} to={props.toPath}>{props.value}</Link>
+  )
+}
+
 
 class Navbar extends React.Component {
   state = {
@@ -12,11 +24,11 @@ class Navbar extends React.Component {
           <a className="navbar-item" id="logo" href="google.com">
             <img alt="logo" src="https://www.freepnglogos.com/uploads/logo-3d-png/3d-company-logos-design-logo-online-2.png" />
           </a>
-          <a className={"navbar-item navbar-option" + (this.state.display ? " show" : "")} href="google.com">Home</a>
-          <a className={"navbar-item navbar-option" + (this.state.display ? " show" : "")} href="google.com">Pancake</a>
-          <a className={"navbar-item navbar-option" + (this.state.display ? " show" : "")} href="google.com">Duck</a>
-          <a className={"navbar-item navbar-option" + (this.state.display ? " show" : "")} href="google.com">Trampoline</a>
-          <a className={"navbar-item" + (this.state.display ? " active-hamburger" : "")} id="hamburger" href="google.com" onClick={() => this.setState({ display: !this.state.display })}>
+
+          <NavbarItem display={this.state.display} value="Cookbook" toPath="/cookbook" />
+          <NavbarItem display={this.state.display} value="Recipe" toPath="/recipe" />
+
+          <a className={"navbar-item" + (this.state.display ? " active-hamburger" : "")} id="hamburger" href="#" onClick={() => this.setState({ display: !this.state.display })}>
             <span className="hamburger-line"></span>
             <span className="hamburger-line"></span>
             <span className="hamburger-line"></span>
@@ -28,5 +40,6 @@ class Navbar extends React.Component {
 
   }
 }
+
 
 export default Navbar;

@@ -12,23 +12,17 @@ function Info(props) {
 }
 
 class RecipeInfo extends React.Component {
-  state = {
-    info: {
-      prepTime: 15,
-      cookingTime: 45,
-      servingSize: 3
-    }
-  }
 
   render() {
     return (
-      <div>
+      <div className="recipe-info">
         <img className="recipe-image" alt="recipe" src="https://www.landolakes.com/RecipeManagementSystem/media/Recipe-Media-Files/Recipes/Retail/x17/2018_Avocado-and-Bacon-Grilled-Cheese_2644_600x600.jpg?ext=.jpg" />
-        <h1 className="recipe-title">Apple Sandwich</h1>
+        <h1 className="recipe-title">{this.props.info.title}</h1>
+        <p>{this.props.info.description}</p>
         <div className="info-container">
-          <Info img={CookingPrep} text={"Prep time: " + this.state.info.prepTime} />
-          <Info img={CookingPrep} text={"Cooking time: " + this.state.info.cookingTime} />
-          <Info img={CookingPrep} text={"Serving size: " + this.state.info.servingSize} />
+          <Info img={CookingPrep} text={"Prep time: " + this.props.info.prepTime} />
+          <Info img={CookingPrep} text={"Cooking time: " + this.props.info.cookingTime} />
+          <Info img={CookingPrep} text={"Serving size: " + this.props.info.servingSize} />
         </div>
       </div>
     )

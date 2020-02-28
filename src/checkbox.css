@@ -1,0 +1,49 @@
+.checkbox-container {
+  position: flex;
+  cursor: pointer;
+  height: 40px;
+  min-width: 40px;
+  align-items: center;
+  justify-content: center;
+}
+
+.hidden-input {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+
+.checkbox {
+  fill: none;
+  stroke: black;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.todo__box,
+.checkmark {
+  transition: stroke-dashoffset 0.8s cubic-bezier(0.9, 0, 0.5, 1);
+}
+
+.todo__box {
+  transition-delay: 5s;
+}
+
+.checkmark {
+  stroke-dasharray: 9.8995, 9.8995;
+  stroke-dashoffset: 9.8995;
+  transition-duration: 0.33s;
+}
+
+.hidden-input:checked ~ .checkbox .todo__box {
+  opacity: 0;
+}
+
+.hidden-input:checked ~ .checkbox .checkmark {
+  stroke-dashoffset: 0;
+  transition-delay: 0.1s;
+}
